@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/python2
+#!/usr/bin/python2
 # encoding: utf-8
 '''
 setup -- shortdesc
