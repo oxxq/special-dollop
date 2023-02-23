@@ -1,4 +1,4 @@
 <?php
-    $e = shell_exec("/bin/bash /var/www/epg.sh epg");
+    $e = shell_exec("/bin/bash epg.sh epg");
     echo "$e";
 ?>
