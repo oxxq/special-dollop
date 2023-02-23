@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/python2
+#!/usr/bin/python2
 
 import sys, re, os, requests, sqlite3, json, time, urllib, base64, codecs, threading, random, gzip, ssl
 from datetime import date
@@ -7,8 +7,8 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from urllib2 import urlopen, Request, HTTPError
 
-db = '/data/data/com.termux/files/home/lighttpd/www/playlist.db'
-hurl = 'http://localhost:8080'
+db = '/var/www/playlist.db'
+hurl = 'http://localhost'
 
 def m3u8():
     #url = 'https://www2.vavoo.to/live2/index'
@@ -58,9 +58,9 @@ def m3u8():
     con.commit()
 
     for group in groups:
-        if os.path.exists("/data/data/com.termux/files/home/lighttpd/www/%s.m3u8" % group):
-            os.remove("/data/data/com.termux/files/home/lighttpd/www/%s.m3u8" % group)
-        tf = open("/data/data/com.termux/files/home/lighttpd/www/%s.m3u8" % group, "w")
+        if os.path.exists("/var/www/%s.m3u8" % group):
+            os.remove("/var/www/%s.m3u8" % group)
+        tf = open("/var/www/%s.m3u8" % group, "w")
         tf.write("#EXTM3U")
         tf.close()
 
@@ -78,7 +78,7 @@ def m3u8():
         cur.execute('SELECT * FROM channel WHERE name="' + c['name'].encode('ascii', 'ignore').decode('ascii') + '" AND grp="' + group + '"')
         row = cur.fetchone()
         if row:
-            tf = open("/data/data/com.termux/files/home/lighttpd/www/%s.m3u8" % c['group'], "a")
+            tf = open("/var/www/%s.m3u8" % c['group'], "a")
             if not str(row[3]) == '' and not str(row[4]) == '':
                 tf.write('\n#EXTINF:-1 tvg-name="%s" group-title="%s" tvg-logo="%s" tvg-id="%s",%s' % (row[1], row[2], row[3], row[4], row[6]))
             elif not str(row[3]) == '' and str(row[4]) == '':
