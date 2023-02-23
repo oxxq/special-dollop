@@ -1,4 +1,4 @@
 <?php
-    $e = shell_exec("/data/data/com.termux/files/usr/bin/bash /data/data/com.termux/files/home/epg.sh epg");
+    $e = shell_exec("/bin/bash /var/www/epg.sh epg");
     echo "$e";
 ?>
