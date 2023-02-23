@@ -7,7 +7,7 @@
         $stime = $row['time'];
         $now = time();
         if($now > $stime + 300) {
-            $nsig = shell_exec("/data/data/com.termux/files/usr/bin/python2 /data/data/com.termux/files/home/lighttpd/www/playlist.py sig2");
+            $nsig = shell_exec("/usr/bin/python2 playlist.py sig2");
             if ($nsig) {
                 $query = $db->exec('DELETE FROM sig');
                 $query = $db->exec("INSERT INTO sig (sig,time) VALUES ('".$nsig."', '".time()."')");
