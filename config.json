@@ -1,0 +1,70 @@
+[
+    {
+        "type": "title",
+        "title": "Flask Server Settings:"
+    },
+    {
+        "type": "string",
+        "title": "Flask Host:",
+        "desc": "(default: 0.0.0.0) #to startup on all ip's",
+        "section": "Main",
+        "key": "flask_host"
+    },
+    {
+        "type": "numeric",
+        "title": "Flask Port:",
+        "desc": "(default: 5000)",
+        "section": "Main",
+        "key": "flask_port"
+    },
+    {
+        "type": "title",
+        "title": "M3u8 List Settings:"
+    },
+    {
+        "type": "string",
+        "title": "Host URL for List creation:",
+        "desc": "(default: http://[network.ipaddress])",
+        "section": "Main",
+        "key": "m3u8_host"
+    },
+    {
+        "type": "bool",
+        "title": "Start M3u8 List creation as background Service:",
+        "desc": "(default: True)",
+        "section": "Main",
+        "key": "m3u8_service"
+    },
+    {
+        "type": "numeric",
+        "title": "Sleep Time (in Hour's) for m3u8 background Service:",
+        "desc": "(default: 12)",
+        "section": "Main",
+        "key": "m3u8_sleep"
+    },
+    {
+        "type": "title",
+        "title": "EPG Settings:"
+    },
+    {
+        "type": "numeric",
+        "title": "Days to grab EPG:",
+        "desc": "(default: 7)",
+        "section": "Main",
+        "key": "epg_grab"
+    },
+    {
+        "type": "bool",
+        "title": "Start EPG Grabber as background Service:",
+        "desc": "(default: True)",
+        "section": "Main",
+        "key": "epg_service"
+    },
+    {
+        "type": "numeric",
+        "title": "Sleep Time (in Day's) for EPG background Service:",
+        "desc": "(default: 5)",
+        "section": "Main",
+        "key": "epg_sleep"
+    }
+]
