@@ -1,0 +1,132 @@
+<ContentNavigationDrawer>:
+    orientation: "vertical"
+    padding: "8dp"
+    spacing: "8dp"
+
+    AnchorLayout:
+        anchor_x: "left"
+        size_hint_y: None
+        height: avatar.height
+
+        Image:
+            id: avatar
+            size_hint: None, None
+            size: "56dp", "56dp"
+            source: "data/icon.png"
+
+    MDLabel:
+        text: "Mastaaa's Vavoo-Parser"
+        font_style: "Button"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    MDLabel:
+        text: "https://github.com/Mastaaa1987/vavoo-parser"
+        font_style: "Caption"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    ScrollView:
+        MDList:
+            OneLineAvatarListItem:
+                text: "Start M3u8 List creation"
+                on_press: app.start_m3u8()
+                on_release: root.nav_drawer.set_state("close")
+                IconLeftWidget:
+                    icon: 'file-video'
+
+            OneLineAvatarListItem:
+                text: "Start EPG grabbing"
+                on_press: app.start_epg()
+                on_release: root.nav_drawer.set_state("close")
+                IconLeftWidget:
+                    icon: 'television-guide'
+
+            OneLineAvatarListItem:
+                text: "Start Signatur-Key creation"
+                on_press: app.start_sig()
+                on_release: root.nav_drawer.set_state("close")
+                IconLeftWidget:
+                    icon: 'refresh'
+
+            OneLineAvatarListItem:
+                text: "Start All Services"
+                on_press: app.start_service()
+                on_release: root.nav_drawer.set_state("close")
+                IconLeftWidget:
+                    icon: 'play'
+
+            OneLineAvatarListItem:
+                text: "Stop All Services"
+                on_press: app.stop_service()
+                on_release: root.nav_drawer.set_state("close")
+                IconLeftWidget:
+                    icon: 'stop'
+
+            OneLineAvatarListItem:
+                text: "Settings"
+                on_press: app.open_settings()
+                on_release: root.nav_drawer.set_state("close")
+                IconLeftWidget:
+                    icon: 'cog'
+
+            OneLineAvatarListItem:
+                text: "Exit"
+                on_press: app.exit()
+                on_release: root.nav_drawer.set_state("close")
+                IconLeftWidget:
+                    icon: 'power-standby'
+
+
+ScreenManager:
+    Main:
+<Main>:
+    name : 'main'
+    BoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            id: toolbar
+            title: "Vavoo - LiveTV Parser"
+            md_bg_color: app.theme_cls.primary_color
+            left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
+
+        BoxLayout:
+            size_hint_y: None
+            height: '30sp'
+            Label:
+                text_size: self.size[0], None
+                text: 'Messages:'
+
+        ScrollView:
+            Label:
+                id: message
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.size[0], None
+
+        BoxLayout:
+            size_hint_y: None
+            height: '30sp'
+            Label:
+                text_size: self.size[0], None
+                text: 'Log:'
+
+        ScrollView:
+            Label:
+                id: log
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.size[0], None
+
+    FloatLayout:
+        MDFloatingActionButtonSpeedDial:
+            data: app.button_data
+            root_button_anim: True
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+
+        ContentNavigationDrawer:
+            nav_drawer: nav_drawer

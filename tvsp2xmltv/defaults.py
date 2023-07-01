@@ -4,7 +4,6 @@ import os
 import stat
 
 import requests
-from kivy.logger import Logger
 
 
 
@@ -32,6 +31,7 @@ grab_today = bool(1)
 number_of_images_per_show = int(2)
 size_of_images = int(2)
 debug = bool(0)
+client = None
 
 sart_map = {
     'SE': 'series',
@@ -344,7 +344,8 @@ def checkchannelids():
             if val not in channelids:
                 print("%s" % val)
     except IOError as e:
-        Logger.info(e)
+        if client:
+            client.send_message(b'/log', [str(e).encode('utf8'), ])
 
 
 def checkchannelmap():
