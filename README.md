@@ -54,7 +54,9 @@ Also um alles wieder ans laufen zu bekommen (nach neustart etc.) die App "**Term
 Danach lässt sich alles via **Browser** <URL> aktuallisieren:
 
 [http://localhost:8080/m3u8.php](http://localhost:8080/m3u8.php)
+
 [http://localhost:8080/sig.php](http://localhost:8080/sig.php)
+
 [http://localhost:8080/epg.php](http://localhost:8080/epg.php)
 
 ## 
