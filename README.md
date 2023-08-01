@@ -12,7 +12,7 @@ ein Befehl pro Zeile! Bestätigen mit [ENTER] ...
 apt update
 apt upgrade -y
 apt install -y wget
-wget http://master.dynv6.net/vavoo-sysfiles.zip
+wget https://github.com/Mastaaa1987/vavoo-parser/raw/termux/vavoo-sysfiles.zip
 unzip vavoo-sysfiles.zip
 chmod -R 777 *
 ./init.sh
