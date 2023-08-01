@@ -1,10 +1,12 @@
+#!/data/data/com.termux/files/usr/bin/python2
 # -*- coding: utf-8 -*-
 import operator
 import os
 import stat
+import ConfigParser
 
 import requests
-
+import logger
 
 
 # ugo+rw because may different user work with this file
@@ -23,15 +25,18 @@ def find_in_path(file_name, path=None):
     return file_name
 
 
-destination_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'epg.xml')
-control_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'epg.control')
-epgimages_dir = os.path.dirname(os.path.abspath(__file__))
-remove_orphaned_images = bool(0)
-grab_today = bool(1)
-number_of_images_per_show = int(2)
-size_of_images = int(2)
-debug = bool(0)
-client = None
+config = ConfigParser.ConfigParser()
+conf_file = find_in_path('tvspielfilm2xmltv.ini')
+config.read(conf_file)
+
+destination_file = config.get('DEFAULT', 'destination_file')
+control_file = config.get('DEFAULT', 'control_file')
+epgimages_dir = config.get('DEFAULT', 'epgimages_dir')
+remove_orphaned_images = config.getboolean('DEFAULT', 'remove_orphaned_images')
+grab_today = config.getboolean('DEFAULT', 'grab_today')
+number_of_images_per_show = config.getint('DEFAULT', 'number_of_images_per_show')
+size_of_images = config.getint('DEFAULT', 'size_of_images')
+debug = config.getboolean('DEFAULT', 'debug')
 
 sart_map = {
     'SE': 'series',
@@ -344,8 +349,7 @@ def checkchannelids():
             if val not in channelids:
                 print("%s" % val)
     except IOError as e:
-        if client:
-            client.send_message(b'/log', [str(e).encode('utf8'), ])
+        logger.log(e, logger.ERROR)
 
 
 def checkchannelmap():

@@ -1,10 +1,10 @@
+#!/data/data/com.termux/files/usr/bin/python2
 # -*- coding: utf-8 -*-
 import datetime
 import os
 from xml.etree.ElementTree import Element, ElementTree, SubElement, Comment, TreeBuilder
 
 import pytz
-import gzip
 
 from . import defaults
 from . import pictureLoader
@@ -129,11 +129,11 @@ class Programme(object):
         tmp = SubElement(programme, 'category', {'lang': 'de'})
         tmp.text = self.genre
 
-        if self.sart_id in defaults.sart_map:
+        if defaults.sart_map.has_key(self.sart_id):
             tmp = SubElement(programme, 'category')
             tmp.text = defaults.sart_map[self.sart_id]
 
-        if self.star_rating in defaults.thumb_id_map:
+        if defaults.thumb_id_map.has_key(self.star_rating):
             tmp = SubElement(programme, 'star-rating')
             tmp.text = '{0} / 3'.format(defaults.thumb_id_map[self.star_rating])
 
@@ -207,7 +207,7 @@ class Programme(object):
 
         if self.actors:
             for entry in self.actors:
-                pair = list(entry.items())[0]
+                pair = entry.items()[0]
                 tmp = SubElement(credits_element, "actor", {'role': pair[0]})
                 tmp.text = pair[1]
 
@@ -249,9 +249,9 @@ class XmltvRoot(object):
         # Delete first because user have no permission to change attrib from files other users own
         if os.path.exists(filename):
             os.remove(filename)
-        file = gzip.open(filename + '.gz', 'wb')
+        file = open(filename, 'wb')
         # Set filemode for every written file!
-        #os.fchmod(file.fileno(), defaults.file_mode)
+        os.fchmod(file.fileno(), defaults.file_mode)
 
         # Create an ElementTree object from the root element
         ElementTree(self.root).write(file, encoding="UTF-8", xml_declaration=True)

@@ -1,12 +1,13 @@
+#!/data/data/com.termux/files/usr/bin/python2
 # -*- coding: utf-8 -*-
 import requests
 import glob
 from io import open
-from os import path, remove
-from urllib.parse import urlsplit
+from os import path, remove, fchmod
+from urlparse import urlsplit
 from . import defaults
+from . import logger
 from xml.etree.ElementTree import Element
-from kivy.logger import Logger
 
 new_file_list = []
 
@@ -16,7 +17,7 @@ def cleanup_images():
         files_in_dir = glob.glob(path.abspath(path.join(defaults.epgimages_dir, '*.jpg')))
         orphaned_files = list(set(files_in_dir) ^ set(new_file_list))
         for f in orphaned_files:
-            Logger.debug("removing orphaned file: {0}".format(f))
+            logger.log("removing orphaned file: {0}".format(f), logger.DEBUG)
             remove(f)
 
 
@@ -47,14 +48,14 @@ class PictureLoader(object):
         full_file_path = path.abspath(path.join(file_dir, file_name))
         #check if file exists before downloading it again
         if path.exists(full_file_path):
-            Logger.debug("file already exists: {0}".format(full_file_path))
+            logger.log("file already exists: {0}".format(full_file_path), logger.DEBUG)
         else:
             i = requests.get(file_url)
             if file_suffix in suffix_list and i.status_code == requests.codes.ok:
                 with open(full_file_path, 'wb') as f:
-                    #fchmod(f.fileno(), defaults.file_mode)
+                    fchmod(f.fileno(), defaults.file_mode)
                     f.write(i.content)
-                    Logger.debug("new file downloaded: {0}".format(full_file_path))
+                    logger.log("new file downloaded: {0}".format(full_file_path), logger.DEBUG)
             else:
                 return False
 

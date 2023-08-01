@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/data/data/com.termux/files/usr/bin/python2
 # -*- coding: utf-8 -*-
 import datetime
 
@@ -6,6 +6,7 @@ import requests
 
 from . import model
 from . import defaults
+from . import logger
 from . import pictureLoader
 
 
@@ -27,16 +28,14 @@ class TvsGrabber(object):
         #broadcast/list/K1/2014-10-18
         #url = "http://tvs3.cellular.de/broadcast/list/{0}/{1}".format(tvsp_id, date)
         url = "https://live.tvspielfilm.de/static/broadcast/list/{0}/{1}".format(tvsp_id, date)
-        if defaults.client:
-            defaults.client.send_message(b'/log', [str(url).encode('utf8'), ])
+        print url
         r = requests.get(url, headers=self.headers)
         r.encoding = 'utf-8'
         if r.status_code == requests.codes.ok:
-            #Logger.debug(r.url)
+            logger.log(r.url, logger.DEBUG)
             return r.json()
         else:
-            if defaults.client:
-                defaults.client.send_message(b'/log', [str('{0} returned status code {1}'.format(r.url, r.status_code)).encode('utf8'), ])
+            logger.log('{0} returned status code {1}'.format(r.url, r.status_code), logger.WARNING)
 
     def start_grab(self):
 
@@ -49,7 +48,7 @@ class TvsGrabber(object):
 
         # combination channels
         for chan_id in self.channel_list:
-            if chan_id in defaults.combination_channels:
+            if defaults.combination_channels.has_key(chan_id):
                 name = ';'.join(str(x) for x in defaults.combination_channels[chan_id])
                 chan = model.Channel(chan_id, name)
                 self.xmltv_doc.append_element(chan)
@@ -67,8 +66,7 @@ class TvsGrabber(object):
                 if chan_id in defaults.combination_channels:
                     tvsp_id = defaults.combination_channels[chan_id]
                 else:
-                    if defaults.client:
-                        defaults.client.send_message(b'/log', [str("Channel {0} not in channel map.".format(chan_id)).encode('utf8'), ])
+                    logger.log("Channel {0} not in channel map.".format(chan_id), logger.WARNING)
                     continue
 
             for i in range(self.grab_days):
@@ -95,8 +93,7 @@ class TvsGrabber(object):
                 prog = model.Programme(s, channel_id, self.pictures)
                 self.xmltv_doc.append_element(prog)
             except Exception as e:
-                if defaults.client:
-                    defaults.client.send_message(b'/log', [str("Failed to fetch Channel {0} at {1}".format(tvsp_id, date)).encode('utf8'), ])
-                    defaults.client.send_message(b'/log', [str(e).encode('utf8'), ])
+                logger.log("Failed to fetch Channel {0} at {1}".format(tvsp_id, date), logger.WARNING)
+                logger.log(e, logger.WARNING)
                 if defaults.debug:
                     raise
