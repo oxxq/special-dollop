@@ -3,6 +3,7 @@
 ## Termux Version
 
 ### **1.** Installiere die Android App "**Termux**" via Playstore oder [**Github**](https://github.com/termux/termux-app/releases).
+
 ## 
 ### **2.** Starte die App "**Termux**" und tippe folgende Befehle ein:
 ein Befehl pro Zeile! Bestätigen mit [ENTER] ...
@@ -16,19 +17,21 @@ unzip vavoo-sysfiles.zip
 chmod -R 777 *
 ./init.sh
 ```
+
 ## 
 ### **3.** Starte eine Browser App (aka. **Chrome**) und tippe als URL ein:
 [http://localhost:8080/m3u8.php](http://localhost:8080/m3u8.php)
 
-`Um die m3u8 listen zu erstellen, kann paar sekunden dauern aber es sollte angezeigt werden: All Done!`
+Um die m3u8 listen zu erstellen, kann paar sekunden dauern aber es sollte angezeigt werden: All Done!
 
 [http://localhost:8080/epg.php](http://localhost:8080/epg.php)
 
-`Um Deutsches epg via tvspielfilme zu epg.xml.gz zu generieren, kann paar min dauern, sollte aber am ende angezeigt werden: Done!`
+Um Deutsches epg via tvspielfilme zu epg.xml.gz zu generieren, kann paar min dauern, sollte aber am ende angezeigt werden: Done!
 
 [http://localhost:8080/sig.php](http://localhost:8080/sig.php)
 
-`Um signatur neu abzufragen, sollte fixx gehen, es sollte angezeigt werden: der signatur key ...`
+Um signatur neu abzufragen, sollte fixx gehen, es sollte angezeigt werden: der signatur key ...
+
 ## 
 ### **4.** Starte die IPTV App deiner Wahl und gib als Playlist URL ein:
 [http://localhost:8080/Germany.m3u8](http://localhost:8080/Germany.m3u8)
@@ -38,22 +41,22 @@ chmod -R 777 *
 Und wenn epg erstellt worden ist als EPG-URL:
 
 [http://localhost:8080/epg.xml.gz](http://localhost:8080/epg.xml.gz)
+
 ## 
 ### **5.** Genieße den Stream **deiner** Wahl **!**
 
 ### **6.** Wenn alles läuft, Surfe auf **Digital-Eliteboard.com** and **Like ME!**
 ## All Done!
-Also um alles wieder ans laufen zu bekommen (nach neustart etc.) einfach die App "**Termux**" starten und tippe ein:
+Also um alles wieder ans laufen zu bekommen (nach neustart etc.) die App "**Termux**" starten und tippe ein:
 ```shell
 ./start.sh
 ```
 Danach lässt sich alles via **Browser** <URL> aktuallisieren:
 
 [http://localhost:8080/m3u8.php](http://localhost:8080/m3u8.php)
-
 [http://localhost:8080/sig.php](http://localhost:8080/sig.php)
-
 [http://localhost:8080/epg.php](http://localhost:8080/epg.php)
+
 ## 
 ### **7. Optional:** Um Cronjob zu installieren tippe in "**Termux**" ein:
 ```shell
